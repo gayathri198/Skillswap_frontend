@@ -1,0 +1,62 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 25px 18px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  gap: 16px;
+}
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  padding: 11px 16px;
+  color: white;
+  background: #1c2942;
+  border-radius: 6px;
+  font-size: 11px;
+  box-shadow: 0 8px 24px #15213c33;
+  animation: rise 0.2s ease-out;
+  cursor: pointer;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    padding: 20px 14px;
+  }
+
+  .content-grid {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-shell {
+    display: block;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="greeting">
+    <h1>Hello,{{username}}! <span class="wave">◒</span></h1>
+    <p>Let's learn, share and grow together.</p>
+  </div>
+
+  <div class="header-actions">
+    <label class="search-box">
+      <app-icon name="search" [size]="17" />
+      <input placeholder="Search skills, people..." aria-label="Search skills and people" />
+    </label>
+
+    <button class="icon-button notification" (click)="notify.emit()">
+      <app-icon name="bell" [size]="19" />
+      <i></i>
+    </button>
+
+    <button class="profile-menu" (click)="profile.emit()">
+      <span class="avatar avatar-gayathri">G</span>
+      <span class="profile-text">
+        <b>Gayathri</b>
+        <small>Learner</small>
+      </span>
+      <app-icon name="chevron" [size]="14" />
+    </button>
+  </div>
+</header>

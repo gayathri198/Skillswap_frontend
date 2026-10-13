@@ -1,0 +1,131 @@
+<div class="settings-shell">
+  <app-sidebar initialActive="Settings" (navigate)="handleNavigation($event)" />
+
+  <main class="settings-main">
+    <header class="topbar">
+      <label class="global-search">
+        <app-icon name="search" [size]="18" />
+        <input type="text" placeholder="Search skills, people..." aria-label="Search skills and people" />
+      </label>
+      <button class="notification-button" aria-label="Notifications">
+        <app-icon name="bell" [size]="20" />
+        <span></span>
+      </button>
+      <div class="profile-summary">
+        <span class="profile-avatar">G</span>
+        <div>
+          <strong>Gayathri</strong>
+          <small>Learner</small>
+        </div>
+        <app-icon name="chevron-down" [size]="15" />
+      </div>
+    </header>
+
+    <section class="settings-card">
+      <div class="settings-heading">
+        <span class="settings-heading-icon"><app-icon name="settings" [size]="27" /></span>
+        <div>
+          <h1>Settings</h1>
+          <p>Manage your account settings and preferences.</p>
+        </div>
+      </div>
+
+      <div class="settings-layout">
+        <nav class="settings-nav" aria-label="Settings sections">
+          @for (section of sections; track section.label) {
+            <button type="button" [class.active]="activeSection() === section.label" (click)="selectSection(section.label)">
+              <app-icon [name]="section.icon" [size]="21" />
+              <span>{{ section.label }}</span>
+            </button>
+          }
+        </nav>
+
+        <div class="settings-content">
+          @switch (activeSection()) {
+            @case ('Account') {
+              <section class="settings-panel">
+                <div class="panel-heading">
+                  <div>
+                    <h2>Account Information</h2>
+                    <p>Update your personal details and contact information.</p>
+                  </div>
+                  <button type="button" class="outline-button" (click)="goToProfile()">
+                    <app-icon name="pencil" [size]="16" /> Edit Profile
+                  </button>
+                </div>
+
+                <div class="account-banner">
+                  <span class="large-avatar">G</span>
+                  <div>
+                    <h3>Gayathri</h3>
+                    <span>Learner</span>
+                    <p><app-icon name="users" [size]="15" /> Member since 25 May 2025</p>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <label>Full Name<input type="text" [(ngModel)]="fullName" /></label>
+                  <label>Username<input type="text" [(ngModel)]="username" /></label>
+                  <label>Email ID<input type="email" [(ngModel)]="email" /></label>
+                  <label>Mobile Number<input type="tel" [(ngModel)]="mobileNumber" /></label>
+                </div>
+              </section>
+
+              <section class="settings-panel preferences-panel">
+                <div class="panel-heading simple">
+                  <div>
+                    <h2>Personal Preferences</h2>
+                    <p>Customize your experience on SkillSwap.</p>
+                  </div>
+                </div>
+                <div class="preferences-grid">
+                  <label><span><app-icon name="globe" [size]="17" /> Language</span><select [(ngModel)]="language"><option>English</option><option>Hindi</option><option>Spanish</option></select></label>
+                  <label><span><app-icon name="clock" [size]="17" /> Time Zone</span><select [(ngModel)]="timeZone"><option>Asia/Kolkata</option><option>UTC</option><option>America/New_York</option></select></label>
+                  <label><span><app-icon name="sun" [size]="17" /> Theme</span><select [(ngModel)]="theme"><option>Light</option><option>Dark</option><option>System Default</option></select></label>
+                </div>
+              </section>
+
+              <section class="settings-panel activity-panel">
+                <div class="panel-heading simple">
+                  <div>
+                    <h2>Account Activity</h2>
+                    <p>Manage your active sessions and devices.</p>
+                  </div>
+                  <button type="button" class="outline-button" (click)="goToSessions()"><app-icon name="monitor" [size]="16" /> View Sessions</button>
+                </div>
+                <div class="device-row">
+                  <app-icon name="monitor" [size]="23" />
+                  <div><strong>Current Device</strong><span>Chrome on Windows (IP: 127.0.0.1)</span></div>
+                  <b><i></i> Active</b>
+                </div>
+              </section>
+            }
+            @case ('Change Password') {
+              <section class="settings-panel simple-page">
+                <div class="panel-heading simple"><div><h2>Change Password</h2><p>Keep your account secure with a strong password.</p></div></div>
+                <div class="password-form form-grid single-column">
+                  <label>Current Password<input type="password" [(ngModel)]="currentPassword" /></label>
+                  <label>New Password<input type="password" [(ngModel)]="newPassword" /></label>
+                  <label>Confirm New Password<input type="password" [(ngModel)]="confirmPassword" /></label>
+                </div>
+                <button type="button" class="save-button" (click)="saveSettings()">Update Password</button>
+              </section>
+            }
+            @case ('Notifications') {
+              <section class="settings-panel simple-page"><div class="panel-heading simple"><div><h2>Notification Preferences</h2><p>Choose which updates you want to receive.</p></div></div><label class="toggle-row"><span><strong>Email notifications</strong><small>Receive activity updates by email.</small></span><input type="checkbox" [(ngModel)]="emailNotifications" /></label><label class="toggle-row"><span><strong>Message notifications</strong><small>Get notified when someone sends you a message.</small></span><input type="checkbox" [(ngModel)]="messageNotifications" /></label><button type="button" class="save-button" (click)="saveSettings()">Save Preferences</button></section>
+            }
+            @case ('Appearance') {
+              <section class="settings-panel simple-page"><div class="panel-heading simple"><div><h2>Appearance</h2><p>Choose how SkillSwap looks on your device.</p></div></div><div class="appearance-options"><button type="button" [class.selected]="theme === 'Light'" (click)="theme = 'Light'"><app-icon name="sun" [size]="22" /><strong>Light</strong><small>Bright and clean</small></button><button type="button" [class.selected]="theme === 'Dark'" (click)="theme = 'Dark'"><app-icon name="settings" [size]="22" /><strong>Dark</strong><small>Easy on the eyes</small></button></div><button type="button" class="save-button" (click)="saveSettings()">Save Appearance</button></section>
+            }
+            @case ('Privacy') {
+              <section class="settings-panel simple-page"><div class="panel-heading simple"><div><h2>Privacy</h2><p>Control what other SkillSwap members can see.</p></div></div><label class="toggle-row"><span><strong>Show profile to members</strong><small>Let other learners discover your skills.</small></span><input type="checkbox" checked /></label><label class="toggle-row"><span><strong>Show active requests</strong><small>Display your active learning requests on your profile.</small></span><input type="checkbox" checked /></label></section>
+            }
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+@if (savedNotice()) { <div class="toast" role="status">Your settings have been saved.</div> }
+

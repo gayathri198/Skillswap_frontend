@@ -1,0 +1,106 @@
+<div class="messages-shell">
+  <app-sidebar initialActive="Messages" (navigate)="handleNavigation($event)" />
+
+  <main class="messages-main">
+    <section class="messages-card">
+      <div class="conversations-panel">
+        <div class="conversations-header">
+          <h1>Messages</h1>
+          <button class="icon-button" aria-label="New message">
+            <app-icon name="plus" [size]="18" />
+          </button>
+        </div>
+
+        <label class="search-box">
+          <app-icon name="search" [size]="16" />
+          <input type="text" placeholder="Search conversations..." aria-label="Search conversations" />
+        </label>
+
+        <div class="conversation-list">
+          @for (conv of conversations(); track conv.id) {
+            <button
+              class="conversation-item"
+              [class.active]="conv.id === activeId()"
+              (click)="selectConversation(conv.id)"
+            >
+              <span class="avatar" [class.online]="conv.online">{{ conv.avatar }}</span>
+              <div class="conv-info">
+                <div class="conv-top">
+                  <strong>{{ conv.name }}</strong>
+                  <span class="conv-time">{{ conv.time }}</span>
+                </div>
+                <div class="conv-bottom">
+                  <small>{{ conv.lastMessage }}</small>
+                  @if (conv.unread > 0) {
+                    <b class="unread-badge">{{ conv.unread }}</b>
+                  }
+                </div>
+              </div>
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="chat-panel">
+        @if (activeConversation(); as conv) {
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <span class="avatar" [class.online]="conv.online">{{ conv.avatar }}</span>
+              <div>
+                <strong>{{ conv.name }}</strong>
+                <small>
+                  @if (conv.online) { Online } @else { Last seen {{ conv.time }} }
+                </small>
+              </div>
+            </div>
+            <div class="chat-header-actions">
+              <button class="icon-button" aria-label="Call">
+                <app-icon name="message" [size]="18" />
+              </button>
+              <button class="icon-button" aria-label="More">
+                <app-icon name="settings" [size]="18" />
+              </button>
+            </div>
+          </div>
+
+          <div class="chat-body">
+            <div class="chat-skill-tag">
+              <app-icon name="book" [size]="13" />
+              {{ conv.skill }}
+            </div>
+
+            @for (msg of conv.messages; track msg.id) {
+              <div class="message" [class.from-me]="msg.fromMe">
+                <div class="bubble">
+                  <p>{{ msg.text }}</p>
+                  <span class="msg-time">{{ msg.time }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <form class="chat-composer" (submit)="sendMessage($event)">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              [ngModel]="draft()"
+              (ngModelChange)="draft.set($event)"
+              name="draft"
+              autocomplete="off"
+              aria-label="Type a message"
+            />
+            <button type="submit" class="send-button" aria-label="Send message">
+              <app-icon name="send" [size]="18" />
+            </button>
+          </form>
+        } @else {
+          <div class="empty-chat">
+            <app-icon name="message" [size]="40" />
+            <p>Select a conversation to start messaging</p>
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>
+

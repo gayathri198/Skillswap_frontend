@@ -1,0 +1,534 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  font-family: Arial, sans-serif;
+  background: #f5f6ff;
+}
+
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.login-left {
+  width: 50%;
+  min-height: 100vh;
+
+  padding: 50px 8%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: #5b4df5;
+  color: white;
+}
+
+
+/* BRAND */
+
+.brand {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.brand span {
+  color: #d7ff70;
+}
+
+
+/* WELCOME */
+
+.welcome {
+  max-width: 500px;
+  margin-bottom: 100px;
+}
+
+.tagline {
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #d7ff70;
+}
+
+.welcome h1 {
+  font-size: 55px;
+  margin: 20px 0;
+}
+
+.welcome p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #eeeeee;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.login-right {
+  width: 50%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+
+  padding: 40px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+
+/* LOGIN TITLE */
+
+.login-card h2 {
+  margin: 0;
+
+  font-size: 32px;
+
+  color: #172033;
+}
+
+
+/* SUBTITLE */
+
+.subtitle {
+  margin-top: 8px;
+
+  color: #777;
+
+  font-size: 18px;
+}
+
+
+/* =========================
+   ROLE SELECTION
+========================= */
+
+.role-selection {
+  display: flex;
+
+  gap: 12px;
+
+  margin: 30px 0;
+}
+
+
+/* ROLE BUTTON */
+
+.role-button {
+  flex: 1;
+
+  padding: 15px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  text-align: left;
+
+  background: white;
+
+  border: 2px solid #eeeeee;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* ROLE BUTTON HOVER */
+
+.role-button:hover {
+  border-color: #aaa;
+}
+
+
+/* ACTIVE ROLE */
+
+.role-button.active {
+  border-color: #5b4df5;
+
+  background: #f3f1ff;
+}
+
+
+/* ROLE ICON */
+
+.role-icon {
+  font-size: 25px;
+}
+
+
+/* ROLE TITLE */
+
+.role-button strong {
+  display: block;
+
+  font-size: 15px;
+
+  color: #222;
+}
+
+
+/* ROLE DESCRIPTION */
+
+.role-button small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #777;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+/* LABEL */
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #333;
+}
+
+
+/* INPUT */
+
+.form-group input {
+  display: block;
+
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  font-size: 14px;
+
+  font-family: Arial, sans-serif;
+
+  background: white;
+}
+
+
+/* INPUT FOCUS */
+
+.form-group input:focus {
+  border-color: #5b4df5;
+
+  box-shadow: 0 0 0 2px rgba(91, 77, 245, 0.08);
+}
+
+
+/* =========================
+   VALIDATION ERROR
+========================= */
+
+.error {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #e53935;
+
+  font-size: 12px;
+}
+
+
+/* =========================
+   FORGOT PASSWORD
+========================= */
+
+.forgot-password {
+  text-align: center;
+
+  margin-bottom: 20px;
+}
+
+
+/* FORGOT PASSWORD LINK */
+
+.forgot-password a {
+  color: #5b4df5;
+
+  text-decoration: none;
+
+  font-size: 14px;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.login-button {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #5b4df5;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* LOGIN BUTTON HOVER */
+
+.login-button:hover {
+  background: #493bd4;
+}
+
+
+/* =========================
+   GOOGLE LOGIN BUTTON
+========================= */
+
+.google-button {
+  width: 100%;
+
+  padding: 14px;
+
+  margin-top: 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  background: white;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 8px;
+
+  color: #333;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* GOOGLE BUTTON HOVER */
+
+.google-button:hover {
+  background: #f7f7f7;
+
+  border-color: #bbbbbb;
+}
+
+
+/* GOOGLE ICON */
+
+.google-icon {
+  width: 20px;
+
+  height: 20px;
+
+  object-fit: contain;
+}
+
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 25px 0;
+
+  color: #aaa;
+}
+
+
+/* DIVIDER LINES */
+
+.divider::before,
+.divider::after {
+  content: "";
+
+  height: 1px;
+
+  flex: 1;
+
+  background: #eeeeee;
+}
+
+
+/* OR TEXT */
+
+.divider span {
+  font-size: 12px;
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+.register-text {
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+
+  margin-bottom: 0;
+}
+
+
+/* CREATE ACCOUNT */
+
+.register-text a {
+  color: #5b4df5;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+
+/* CREATE ACCOUNT HOVER */
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVE - TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left {
+    width: 100%;
+
+    min-height: 250px;
+
+    padding: 30px;
+  }
+
+  .welcome {
+    margin: 40px 0 0;
+  }
+
+  .welcome h1 {
+    font-size: 38px;
+  }
+
+  .login-right {
+    width: 100%;
+
+    padding: 30px 20px;
+  }
+
+}
+
+
+/* =========================
+   RESPONSIVE - MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+  .role-selection {
+    flex-direction: column;
+  }
+
+  .login-card {
+    padding: 25px;
+  }
+
+  .login-card h2 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+}

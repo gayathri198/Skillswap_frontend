@@ -1,0 +1,23 @@
+<article class="panel sessions-panel">
+  <div class="panel-heading">
+    <h2>Upcoming Sessions</h2>
+    <button>View All</button>
+  </div>
+  <div class="session-list">
+    @for (session of sessions; track session.name) {
+      <div class="session-row">
+        <span class="avatar" [class]="session.avatar">{{ session.initial }}</span>
+        <div class="session-person">
+          <b>{{ session.name }}</b>
+          <small>with {{ session.with }}</small>
+        </div>
+        <div class="session-meta">
+          <span><app-icon name="calendar" [size]="12" />{{ session.date }}</span>
+          <span><app-icon name="clock" [size]="12" />{{ session.time }}</span>
+        </div>
+        <em>Upcoming</em>
+      </div>
+    }
+  </div>
+  <button class="primary-button">View My Sessions</button>
+</article>

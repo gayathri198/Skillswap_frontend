@@ -1,0 +1,136 @@
+<div class="profile-shell">
+  <app-sidebar initialActive="Profile" (navigate)="handleNavigation($event)" />
+
+  <main class="profile-main">
+    <header class="topbar">
+      <label class="global-search">
+        <app-icon name="search" [size]="18" />
+        <input type="text" placeholder="Search skills, people..." aria-label="Search skills and people" />
+      </label>
+      <button class="notification-button" aria-label="Notifications">
+        <app-icon name="bell" [size]="20" />
+        <span></span>
+      </button>
+      <div class="profile-summary">
+        <span class="profile-avatar">{{ getInitial() }}</span>
+        <div>
+          <strong>{{ profile()?.fullName || profile()?.username || 'Account' }}</strong>
+          <small>{{ profile()?.role || 'User' }}</small>
+        </div>
+        <app-icon name="chevron-down" [size]="15" />
+      </div>
+    </header>
+
+    <section class="profile-card">
+      <div class="page-heading">
+        <h1>Profile</h1>
+        <p>View and manage your personal details and public profile.</p>
+      </div>
+      @if (profileError()) {
+        <p class="profile-error" role="alert">{{ profileError() }}</p>
+      }
+
+      <section class="account-card">
+        <div class="section-heading">
+          <h2>Account Information</h2>
+          @if (!isEditing()) {
+            <button type="button" class="primary-button" (click)="toggleEdit()">
+              <app-icon name="pencil" [size]="16" />
+              Edit Profile
+            </button>
+          } @else {
+            <div class="heading-actions">
+              <button type="button" class="secondary-button" (click)="toggleEdit()">Cancel</button>
+              <button type="button" class="primary-button" (click)="saveProfile()">Save Changes</button>
+            </div>
+          }
+        </div>
+        <div class="account-content">
+          <span class="large-avatar">{{ getInitial() }}</span>
+          <div class="account-copy">
+            <h3>{{ profile()?.fullName || profile()?.username || 'Account' }}</h3>
+            <span class="role">{{ profile()?.role || 'User' }}</span>
+            <p>Public profile: <strong>Available to SkillSwap members</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <div class="details-grid">
+        <section class="detail-card contact-card">
+          <h2>Contact Details</h2>
+          <p class="verified-line">Email</p>
+          <p class="email">{{ profile()?.email || 'Not provided' }}</p>
+          <label class="field-label" for="phone">Phone number <span>(optional)</span></label>
+          <input id="phone" type="tel" [(ngModel)]="phone" [readonly]="!isEditing()" />
+        </section>
+
+        <section class="detail-card bio-card">
+          <h2>Bio / Summary</h2>
+          <textarea [(ngModel)]="bio" [readonly]="!isEditing()" maxlength="240" aria-label="Bio and summary"></textarea>
+          <span class="character-count">{{ bio.length }} characters</span>
+        </section>
+      </div>
+
+      <section class="public-preview">
+        <div class="section-heading preview-heading">
+          <div>
+            <h2>Public Profile Preview</h2>
+            <p>See how other users view your profile.</p>
+          </div>
+          <button type="button" class="secondary-button">View Profile</button>
+        </div>
+
+        <div class="preview-grid">
+          <div class="skills-preview">
+            <h3>My Skills</h3>
+            <div class="skill-preview-grid">
+              @if (skillsLoading()) {
+                <p class="preview-message" role="status">Loading your skills...</p>
+              } @else if (skillsError()) {
+                <p class="preview-message error" role="alert">{{ skillsError() }}</p>
+              } @else if (profileSkills().length > 0) {
+                @for (skill of profileSkills(); track skill.name) {
+                  <article class="skill-preview-card">
+                    <span class="skill-icon"><app-icon name="monitor" [size]="18" /></span>
+                    <div>
+                      <strong>{{ skill.name }}</strong>
+                      <span>{{ skill.level }}</span>
+                    </div>
+                  </article>
+                }
+              } @else {
+                <p class="preview-message">No skills added yet.</p>
+              }
+            </div>
+          </div>
+
+          <div class="requests-preview">
+            <h3>Active Requests</h3>
+            @if (requestsLoading()) {
+              <p class="preview-message" role="status">Loading requests...</p>
+            } @else if (requestsError()) {
+              <p class="preview-message error" role="alert">{{ requestsError() }}</p>
+            } @else if (activeRequests().length > 0) {
+              @for (request of activeRequests(); track request.id) {
+                <article class="request-preview-row">
+                  <span class="request-avatar">{{ request.avatar }}</span>
+                  <div>
+                    <strong>{{ request.skill }}</strong>
+                    <span>with {{ request.partner }}</span>
+                  </div>
+                  <button type="button" class="secondary-button" (click)="handleNavigation('My Requests')">View Details</button>
+                </article>
+              }
+            } @else {
+              <p class="preview-message">No active requests.</p>
+            }
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+@if (savedNotice()) {
+  <div class="toast" role="status">Your profile has been saved.</div>
+}

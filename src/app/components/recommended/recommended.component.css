@@ -1,0 +1,84 @@
+.recommended-panel {
+  min-height: 146px;
+}
+
+.recommend-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.recommend-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 3px 5px;
+  border: 1px solid #edf0f5;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.recommend-card:hover {
+  border-color: #bfcaff;
+  box-shadow: 0 4px 12px #4561df12;
+  transform: translateY(-1px);
+}
+
+.large-avatar {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #26344d;
+  font-size: 13px;
+  font-weight: 600;
+  background: #e1e6ee;
+  width: 39px;
+  height: 39px;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 6px #23324d19;
+}
+
+.avatar-manoj {
+  background: linear-gradient(140deg, #ca8e67 0 45%, #1c2730 46% 65%, #d4dce7 66%);
+}
+
+.avatar-priya {
+  background: linear-gradient(140deg, #f5c5ad 0 45%, #202e3d 46% 65%, #b6c4df 66%);
+}
+
+.avatar-vikram {
+  background: linear-gradient(140deg, #ca8e67 0 45%, #1c2730 46% 65%, #d4dce7 66%);
+}
+
+.recommend-card b {
+  color: #253149;
+  font-size: 7px;
+  margin-top: 4px;
+}
+
+.recommend-card small {
+  color: #738198;
+  font-size: 6px;
+  margin-top: 2px;
+}
+
+.rating {
+  color: #f4a918;
+  font-size: 7px;
+  margin: 4px 0;
+}
+
+.recommend-card button {
+  width: 100%;
+  height: 20px;
+  border: 1px solid #dae1f6;
+  border-radius: 4px;
+  font-size: 7px;
+  color: #3152df;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.recommend-card button:hover {
+  background: #eff1ff;
+}

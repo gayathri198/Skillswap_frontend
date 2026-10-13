@@ -1,0 +1,14 @@
+<section class="stats-grid" aria-label="Your activity summary">
+  @for (stat of stats; track stat.label) {
+    <article class="stat-card" [class]="stat.theme">
+      <div class="stat-icon">
+        <app-icon [name]="stat.icon" [size]="21" />
+      </div>
+      <div>
+        <p>{{ stat.label }}</p>
+        <strong>{{ stat.value }}</strong>
+        <small>{{ stat.detail }}</small>
+      </div>
+    </article>
+  }
+</section>

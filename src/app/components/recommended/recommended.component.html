@@ -1,0 +1,17 @@
+<article class="panel recommended-panel">
+  <div class="panel-heading">
+    <h2>Recommended for You</h2>
+    <button>View All</button>
+  </div>
+  <div class="recommend-list">
+    @for (person of people; track person.name) {
+      <div class="recommend-card">
+        <span class="large-avatar" [class]="person.avatar">{{ person.initial }}</span>
+        <b>{{ person.name }}</b>
+        <small>{{ person.skill }}</small>
+        <span class="rating">★ {{ person.rating }}</span>
+        <button>View Profile</button>
+      </div>
+    }
+  </div>
+</article>

@@ -1,0 +1,149 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.greeting h1 {
+  margin: 0;
+  color: #142039;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.greeting p {
+  margin: 5px 0 0;
+  color: #65718a;
+  font-size: 9px;
+}
+
+.wave {
+  color: #e3a13d;
+  font-size: 17px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-box {
+  display: flex;
+  width: 252px;
+  height: 33px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 6px;
+  color: #5c6a84;
+  box-shadow: 0 2px 9px #b2bdd512;
+}
+
+.search-box input {
+  border: 0;
+  outline: 0;
+  width: 100%;
+  color: #25334d;
+  font-size: 9px;
+  background: transparent;
+}
+
+.search-box input::placeholder {
+  color: #9ba5b7;
+}
+
+.icon-button {
+  color: #52617b;
+  position: relative;
+}
+
+.notification i {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  background: #f5575f;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #65718a;
+  text-align: left;
+}
+
+.profile-text b,
+.profile-text small {
+  display: block;
+}
+
+.profile-text b {
+  color: #1b2943;
+  font-size: 9px;
+}
+
+.profile-text small {
+  font-size: 8px;
+  margin-top: 2px;
+}
+
+.profile-menu app-icon {
+  margin-left: 8px;
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #26344d;
+  font-size: 10px;
+  font-weight: 600;
+  background: #e1e6ee;
+  width: 28px;
+  height: 28px;
+}
+
+.avatar-gayathri {
+  background: linear-gradient(140deg, #f5c5ad 0 45%, #202e3d 46% 65%, #b6c4df 66%);
+}
+
+@media (max-width: 900px) {
+  .header-actions {
+    gap: 11px;
+  }
+
+  .search-box {
+    width: 190px;
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+  }
+}
+
+@media (max-width: 380px) {
+  .profile-text {
+    display: none;
+  }
+}

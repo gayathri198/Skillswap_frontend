@@ -1,0 +1,359 @@
+* {
+  box-sizing: border-box;
+}
+
+.home {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #172033;
+  background: #ffffff;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  height: 75px;
+  padding: 0 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #5b4df5;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 35px;
+}
+
+.navbar nav a {
+  text-decoration: none;
+  color: #555555;
+  font-size: 15px;
+}
+
+.navbar nav a:hover {
+  color: #5b4df5;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn,
+.signup-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-btn {
+  background: white;
+  border: 1px solid #dddddd;
+}
+
+.signup-btn {
+  background: #5b4df5;
+  border: none;
+  color: white;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 600px;
+  padding: 80px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 70px;
+  background: #f7f7ff;
+}
+
+.hero-content {
+  max-width: 620px;
+}
+
+.tagline {
+  color: #5b4df5;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-size: 58px;
+  line-height: 1.1;
+  margin: 20px 0;
+}
+
+.hero h1 span {
+  color: #5b4df5;
+}
+
+.description {
+  max-width: 550px;
+  color: #666666;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 14px 25px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #5b4df5;
+  color: white;
+  border: none;
+}
+
+.secondary-btn {
+  background: white;
+  color: #5b4df5;
+  border: 1px solid #5b4df5;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+  display: flex;
+  gap: 55px;
+  margin-top: 50px;
+}
+
+.stat h3 {
+  margin: 0;
+  font-size: 25px;
+}
+
+.stat p {
+  margin-top: 6px;
+  color: #777777;
+}
+
+
+/* =========================
+   HERO CARD
+========================= */
+
+.hero-card {
+  width: 380px;
+  padding: 35px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeff;
+  border-radius: 50%;
+  font-size: 30px;
+}
+
+.hero-card h2 {
+  margin-top: 25px;
+}
+
+.hero-card p {
+  color: #777777;
+  line-height: 1.6;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  margin-top: 10px;
+  background: #f5f5ff;
+  border-radius: 8px;
+}
+
+.skill-row span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.explore-btn {
+  width: 100%;
+  margin-top: 25px;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #5b4df5;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-it-works {
+  padding: 90px 8%;
+  text-align: center;
+}
+
+.section-tag {
+  color: #5b4df5;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.how-it-works h2 {
+  font-size: 40px;
+  margin: 10px 0;
+}
+
+.section-description {
+  color: #777777;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.step-card {
+  width: 300px;
+  padding: 30px;
+  border: 1px solid #eeeeee;
+  border-radius: 15px;
+  background: white;
+}
+
+.step-icon {
+  font-size: 40px;
+}
+
+.step-card h3 {
+  font-size: 20px;
+}
+
+.step-card p {
+  color: #777777;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid #eeeeee;
+}
+
+footer p {
+  color: #777777;
+}
+
+footer small {
+  color: #999999;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .navbar nav {
+    display: none;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .stats {
+    justify-content: center;
+  }
+
+  .hero-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 0 5%;
+  }
+
+  .signup-btn {
+    display: none;
+  }
+
+  .hero {
+    padding: 60px 5%;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .stats {
+    gap: 25px;
+  }
+
+}

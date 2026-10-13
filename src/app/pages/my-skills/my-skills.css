@@ -1,0 +1,484 @@
+
+/* =========================
+   SKILLS PAGE LAYOUT
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.skills-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f9ff;
+}
+
+.skills-main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 58px;
+}
+
+.skills-card {
+  width: min(1075px, 100%);
+  min-height: calc(100vh - 56px);
+  margin: 0 auto;
+  padding: 50px 30px 46px;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 12px 34px rgba(43, 70, 150, 0.07);
+}
+
+/* =========================
+   PAGE HEADING
+========================= */
+
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  color: #16253d;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.page-heading p,
+.learn-section p {
+  margin-top: 12px;
+  color: #526078;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================
+   PRIMARY BUTTONS
+========================= */
+
+.primary-button,
+.save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 6px;
+  background: #3c35e9;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 7px 15px rgba(60, 53, 233, 0.2);
+  transition: transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.primary-button:hover,
+.save-button:hover {
+  background: #3028d4;
+  transform: translateY(-1px);
+}
+
+.primary-button:active,
+.save-button:active {
+  transform: translateY(0);
+}
+
+.primary-button.small {
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 12px;
+}
+
+/* =========================
+   ADD SKILL BUTTON
+========================= */
+
+.add-skill-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  margin: 0 0 30px;
+  padding: 10px 16px;
+  color: #3934dc;
+  border: 1px solid #dfe4ee;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.add-skill-button:hover {
+  border-color: #aaa8f3;
+  background: #fafaff;
+}
+
+/* =========================
+   ADD SKILL FORM
+========================= */
+
+.add-form {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 20px;
+  margin: 0 0 30px;
+  border: 1px solid #e1e5f0;
+  border-radius: 8px;
+  background: #fbfcff;
+}
+
+.add-form label {
+  display: grid;
+  flex: 1;
+  gap: 7px;
+  min-width: 190px;
+  color: #42516a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.add-form input,
+.add-form select {
+  width: 100%;
+  height: 42px;
+  min-width: 0;
+  padding: 0 12px;
+  color: #1c2b43;
+  border: 1px solid #dbe1ed;
+  border-radius: 6px;
+  background: #fff;
+  outline: none;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-form input::placeholder {
+  color: #9aa4b6;
+}
+
+.add-form input:focus,
+.add-form select:focus {
+  border-color: #4d48ec;
+  box-shadow: 0 0 0 3px rgba(77, 72, 236, 0.1);
+}
+
+/* Cancel button */
+
+.cancel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 16px;
+  color: #4035df;
+  border: 1px solid #d9deed;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  border-color: #aaa8f3;
+  background: #f7f7ff;
+}
+
+/* =========================
+   SKILLS YOU WANT TO LEARN
+========================= */
+
+.skill-section h2 {
+  color: #15253d;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.known-section {
+  margin-top: 30px;
+}
+
+.known-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.known-item {
+  padding: 16px;
+  border: 1px solid #e1e5f0;
+  border-radius: 8px;
+  background: #fbfcff;
+}
+
+.known-item h3 {
+  margin: 0 0 12px;
+  color: #1c2b43;
+  font-size: 15px;
+}
+
+.known-item dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.known-item dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #526078;
+  font-size: 12px;
+}
+
+.known-item dd {
+  margin: 0;
+  color: #3c35dc;
+  font-weight: 600;
+}
+
+.empty-skills {
+  margin-top: 15px;
+  color: #526078;
+  font-size: 14px;
+}
+
+.learn-section {
+  margin-top: 38px;
+}
+
+.learn-section h2 span {
+  color: #15253d;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.learn-section > p {
+  margin-top: 12px;
+  color: #526078;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================
+   LEARNING SKILL LIST
+========================= */
+
+.learning-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.learning-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  color: #3c35dc;
+  border-radius: 5px;
+  background: #eff0ff;
+  font-size: 12px;
+}
+
+.learning-item button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  color: #3c35dc;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.learning-item button:hover {
+  color: #e53935;
+  background: #fff;
+}
+
+/* =========================
+   OUTLINE ACTION BUTTON
+========================= */
+
+.outline-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 24px;
+  padding: 10px 16px;
+  color: #3934dc;
+  border: 1px solid #dfe4ee;
+  border-radius: 7px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.outline-action:hover {
+  border-color: #aaa8f3;
+  background: #fafaff;
+}
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+.save-button {
+  min-width: 165px;
+  margin-top: 50px;
+}
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+.toast {
+  position: fixed;
+  right: 25px;
+  bottom: 24px;
+  z-index: 1000;
+  padding: 12px 18px;
+  color: #fff;
+  border-radius: 7px;
+  background: #182a45;
+  box-shadow: 0 10px 25px rgba(22, 38, 70, 0.2);
+  font-size: 12px;
+  animation: rise 0.2s ease-out;
+  cursor: pointer;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+
+@media (max-width: 1050px) {
+  .skills-main {
+    padding: 22px;
+  }
+
+  .skills-card {
+    padding: 35px 24px;
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 720px) {
+  .skills-shell {
+    display: block;
+  }
+
+  .skills-main {
+    padding: 14px;
+  }
+
+  .skills-card {
+    min-height: auto;
+    padding: 28px 18px;
+  }
+
+  .page-heading {
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .add-form {
+    align-items: stretch;
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .add-form label {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .add-form input,
+  .add-form select {
+    width: 100%;
+  }
+
+  .add-form .primary-button,
+  .add-form .cancel-button {
+    width: 100%;
+  }
+
+  .save-button {
+    width: 100%;
+    margin-top: 35px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 430px) {
+  .page-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  .skills-card {
+    padding: 24px 15px;
+  }
+
+  .learn-section {
+    margin-top: 32px;
+  }
+}

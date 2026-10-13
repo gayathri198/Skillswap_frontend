@@ -1,0 +1,246 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+
+  font-family: Arial, sans-serif;
+
+  background: #f5f6ff;
+}
+
+
+/* =========================
+   REGISTER CARD
+========================= */
+
+.register-card {
+  width: 100%;
+  max-width: 480px;
+
+  padding: 40px;
+
+  background: white;
+  border-radius: 20px;
+
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.brand {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color:#493bd4
+}
+
+.brand span {
+  color:chartreuse
+}
+
+
+/* SkillSwap highlight */
+
+.brand::first-letter {
+  text-transform: uppercase;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.register-card h1 {
+  margin: 0;
+
+  text-align: center;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  color: #172033;
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.subtitle {
+  margin: 10px 0 30px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #777;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   LABEL
+========================= */
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #333;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.form-group input {
+  width: 100%;
+
+  padding: 14px 15px;
+
+  border: 1px solid #dddddd;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+
+  transition: 0.2s;
+}
+
+
+/* Input placeholder */
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+
+/* Input focus */
+
+.form-group input:focus {
+  border-color: #5b4df5;
+
+  box-shadow: 0 0 0 3px rgba(91, 77, 245, 0.10);
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.submit-button {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #5b4df5;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* Button hover */
+
+.submit-button:hover {
+  background: #493bd4;
+
+  transform: translateY(-1px);
+}
+
+
+/* Button active */
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+  .register-page {
+    padding: 25px 15px;
+  }
+
+  .register-card {
+    padding: 30px 25px;
+
+    border-radius: 16px;
+  }
+
+  .register-card h1 {
+    font-size: 28px;
+  }
+
+  .brand {
+    font-size: 27px;
+  }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+  .register-card {
+    padding: 25px 20px;
+  }
+
+  .register-card h1 {
+    font-size: 25px;
+  }
+
+}

@@ -1,0 +1,20 @@
+<div class="app-shell">
+  <app-sidebar (navigate)="handleNavigation($event)" />
+
+  <main class="main-content">
+    <app-header />
+
+    <app-stats />
+
+    <section class="content-grid">
+      <app-activity />
+      <app-sessions />
+      <app-skills />
+      <app-recommended />
+    </section>
+  </main>
+</div>
+
+@if (notice()) {
+  <div class="toast" (click)="notice.set('')">{{ notice() }}</div>
+}

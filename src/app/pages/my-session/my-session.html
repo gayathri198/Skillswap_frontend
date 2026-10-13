@@ -1,0 +1,89 @@
+<div class="sessions-shell">
+  <app-sidebar initialActive="My Sessions" (navigate)="handleNavigation($event)" />
+
+  <main class="sessions-main">
+    <section class="sessions-card">
+      <div class="page-heading">
+        <div>
+          <h1>My Sessions</h1>
+          <p>View and manage your skill swap sessions.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs">
+          @for (tab of tabs; track tab) {
+            <button
+              class="tab"
+              [class.active]="activeTab() === tab"
+              (click)="activeTab.set(tab)"
+            >
+              {{ tab }}
+              <span class="tab-count">{{ counts()[tab] }}</span>
+            </button>
+          }
+        </div>
+        <label class="search-box">
+          <app-icon name="search" [size]="16" />
+          <input
+            type="text"
+            placeholder="Search sessions..."
+            [ngModel]="search()"
+            (ngModelChange)="search.set($event)"
+            aria-label="Search sessions"
+          />
+        </label>
+      </div>
+
+      <div class="sessions-list">
+        @for (session of filtered(); track session.id) {
+          <article class="session-row">
+            <span class="avatar">{{ session.avatar }}</span>
+
+            <div class="session-info">
+              <strong>{{ session.skill }}</strong>
+              <small>with {{ session.partner }}</small>
+            </div>
+
+            <div class="session-meta">
+              <span><app-icon name="calendar" [size]="14" /> {{ session.date }}</span>
+              <span><app-icon name="clock" [size]="14" /> {{ session.time }}</span>
+              <span><app-icon name="book" [size]="14" /> {{ session.duration }}</span>
+            </div>
+
+            <div class="session-side">
+              <span class="mode-badge" [class.mode-online]="session.mode === 'Online'" [class.mode-inperson]="session.mode === 'In-person'">
+                {{ session.mode }}
+              </span>
+              <span class="status-badge" [class]="statusClass(session.status)">{{ session.status }}</span>
+            </div>
+
+            <div class="session-actions">
+              @if (session.status === 'Upcoming') {
+                <button class="btn-join" type="button" (click)="joinSession(session.id)">
+                  Join
+                </button>
+                <button class="btn-cancel" type="button" (click)="cancelSession(session.id)">
+                  Cancel
+                </button>
+              }
+              @if (session.status === 'Completed') {
+                <button class="btn-view" type="button">View Details</button>
+              }
+              @if (session.status === 'Cancelled') {
+                <button class="btn-remove" type="button">Remove</button>
+              }
+            </div>
+          </article>
+        }
+
+        @if (filtered().length === 0) {
+          <div class="empty-state">
+            <app-icon name="calendar" [size]="36" />
+            <p>No {{ activeTab() | lowercase }} sessions found.</p>
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>

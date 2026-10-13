@@ -1,0 +1,17 @@
+<article class="panel skills-panel">
+  <div class="panel-heading">
+    <h2>Top Skills in Demand</h2>
+    <button>View All</button>
+  </div>
+  <div class="skill-list">
+    @for (skill of skills; track skill.name) {
+      <button class="skill-card">
+        <span class="skill-logo" [class]="skill.theme">{{ skill.symbol }}</span>
+        <span class="skill-info">
+          <b>{{ skill.name }}</b>
+          <small>{{ skill.learners }} learners</small>
+        </span>
+      </button>
+    }
+  </div>
+</article>

@@ -1,0 +1,245 @@
+
+<div class="skills-shell">
+
+  <!-- Sidebar -->
+  <app-sidebar
+    initialActive="My Skills"
+    (navigate)="handleNavigation($event)">
+  </app-sidebar>
+
+  <!-- Main Content -->
+  <main class="skills-main">
+
+    <section class="skills-card">
+
+      <!-- Page Heading -->
+      <div class="page-heading">
+        <div>
+          <h1>My Skills</h1>
+          <p>Add the skills you know and want to share.</p>
+        </div>
+      </div>
+
+      <!-- Add Skill Button -->
+      <button
+        class="outline-action add-skill-button"
+        type="button"
+        (click)="openAddForm()">
+
+        <app-icon name="plus" [size]="18"></app-icon>
+        Add Skill
+
+      </button>
+
+      <!-- Add Skill Form -->
+      @if (showAddForm()) {
+
+        <form
+          class="add-form"
+          (ngSubmit)="addSkill()">
+
+          <!-- Skill Dropdown -->
+          <label>
+            Select Skill
+
+            <select
+              [(ngModel)]="newSkill"
+              name="skill"
+              required>
+
+              <option value="">Choose a skill</option>
+
+              @for (skill of availableSkills; track skill) {
+                <option [value]="skill">
+                  {{ skill }}
+                </option>
+              }
+
+            </select>
+          </label>
+
+          <!-- Skill Level Dropdown -->
+          <label>
+            Level
+
+            <select
+              [(ngModel)]="newLevel"
+              name="level"
+              required>
+
+              <option value="beginner">Beginner - 1</option>
+              <option value="intermediate">Intermediate - 3</option>
+              <option value="expert">Expert - 5</option>
+
+            </select>
+          </label>
+
+          <!-- Add Button -->
+          <button
+            class="primary-button small"
+            type="submit">
+
+            Add to my skills
+
+          </button>
+
+          <!-- Cancel Button -->
+          <button
+            class="cancel-button"
+            type="button"
+            (click)="cancelAdd()">
+
+            Cancel
+
+          </button>
+
+        </form>
+
+      }
+
+      <!-- Skills the user knows -->
+      <section class="skill-section known-section">
+        <h2>Skills I Know</h2>
+
+        @if (skills().length > 0) {
+          <div class="known-list">
+            @for (skill of skills(); track skill.id) {
+              <article class="known-item">
+                <h3>{{ skill.name }}</h3>
+                <dl>
+                  <div>
+                    <dt>Type</dt>
+                    <dd>{{ skill.type }}</dd>
+                  </div>
+                  <div>
+                    <dt>Level</dt>
+                    <dd>{{ skill.level }}</dd>
+                  </div>
+                </dl>
+              </article>
+            }
+          </div>
+        } @else {
+          <p class="empty-skills">No skills added yet.</p>
+        }
+      </section>
+
+      <!-- Skills You Want to Learn -->
+      <section class="skill-section learn-section">
+
+        <h2>
+          Skills You Want to Learn
+          <span>(Optional)</span>
+        </h2>
+
+        <p>
+          Add the skills you want to learn or improve.
+        </p>
+
+        <!-- Learning Skill Form -->
+        @if (showLearningForm()) {
+
+          <form
+            class="add-form"
+            (ngSubmit)="saveLearningSkill()">
+
+            <label>
+              Select a skill to learn
+
+              <select
+                [(ngModel)]="newLearningSkill"
+                name="learningSkill"
+                required>
+
+                <option value="">Choose a skill</option>
+
+                @for (skill of availableSkills; track skill) {
+                  <option [value]="skill">
+                    {{ skill }}
+                  </option>
+                }
+
+              </select>
+            </label>
+
+            <button
+              class="primary-button small"
+              type="submit">
+
+              Add Skill to Learn
+
+            </button>
+
+            <button
+              class="cancel-button"
+              type="button"
+              (click)="showLearningForm.set(false)">
+
+              Cancel
+
+            </button>
+
+          </form>
+
+        }
+
+        <!-- Display Learning Skills -->
+        @if (learningSkills().length > 0) {
+
+          <div class="learning-list">
+
+            @for (skill of learningSkills(); track skill.learningSkillId) {
+
+              <span class="learning-item">
+
+                {{ skill.skillName }}
+
+                <button
+                  type="button"
+                  [attr.aria-label]="'Remove ' + skill.skillName"
+                  (click)="removeLearningSkill(skill.skillName)">
+
+                  ×
+
+                </button>
+
+              </span>
+
+            }
+
+          </div>
+
+        }
+
+        <!-- Add Learning Skill Button -->
+        <button
+          class="outline-action"
+          type="button"
+          (click)="addLearningSkill()">
+
+          <app-icon name="plus" [size]="18"></app-icon>
+          Add Skill to Learn
+
+        </button>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- Notification Message -->
+@if (notice()) {
+
+  <div
+    class="toast"
+    role="status"
+    (click)="notice.set('')">
+
+    {{ notice() }}
+
+  </div>
+
+}

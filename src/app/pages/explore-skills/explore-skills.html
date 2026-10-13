@@ -1,0 +1,197 @@
+<div class="explore-shell">
+  <app-sidebar initialActive="Explore Skills" (navigate)="handleNavigation($event)" />
+
+  <main class="explore-main">
+    <header class="topbar">
+      <label class="global-search">
+        <app-icon name="search" [size]="18" />
+        <input
+          type="text"
+          placeholder="Search skills, people..."
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+          aria-label="Search skills and people"
+        />
+      </label>
+      <button class="notification-button" aria-label="Notifications">
+        <app-icon name="bell" [size]="20" />
+        <span></span>
+      </button>
+      <div class="profile-summary">
+        <span class="profile-avatar">G</span>
+        <div>
+          <strong>Gayathri</strong>
+          <small>Learner</small>
+        </div>
+        <app-icon name="chevron-down" [size]="15" />
+      </div>
+    </header>
+
+    <section class="explore-card">
+      <div class="page-heading">
+        <h1>Explore Skills</h1>
+        <p>Discover new skills, connect with experts and start learning today.</p>
+      </div>
+
+      <div class="category-list" aria-label="Skill categories">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            class="category-button"
+            [class.active]="activeCategory() === category"
+            (click)="activeCategory.set(category)"
+          >
+            {{ category }}
+          </button>
+        }
+      </div>
+
+      <div class="skill-grid">
+        @for (skill of filteredSkills(); track skill.id) {
+          <article class="skill-card">
+            <div class="skill-card-heading">
+              <span class="skill-mark" [class]="skill.color">{{ skill.shortName }}</span>
+              <div>
+                <h2>{{ skill.name }}</h2>
+                <span class="learner-count"><app-icon name="users" [size]="15" /> {{ skill.learners }} learners</span>
+              </div>
+            </div>
+            <p>{{ skill.description }}</p>
+            <div class="skill-card-footer">
+              <div class="people-stack" aria-label="Learners">
+                @for (person of skill.people; track person) {
+                  <span>{{ person }}</span>
+                }
+              </div>
+              <button type="button" class="details-button" (click)="openDetails(skill)">View Details</button>
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (filteredSkills().length === 0) {
+        <div class="empty-state">
+          <app-icon name="search" [size]="36" />
+          <p>No skills match your search.</p>
+        </div>
+      }
+    </section>
+  </main>
+</div>
+
+@if (selectedSkill(); as skill) {
+  <div class="modal-backdrop" (click)="closeDetails()">
+    <section class="details-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+      <button class="close-button" type="button" aria-label="Close details" (click)="closeDetails()">
+        <app-icon name="x" [size]="18" />
+      </button>
+      <span class="skill-mark large" [class]="skill.color">{{ skill.shortName }}</span>
+      <span class="modal-category">{{ skill.category }}</span>
+      <h2>{{ skill.name }}</h2>
+      <p>{{ skill.description }}</p>
+      <div class="modal-stat"><app-icon name="users" [size]="17" /> {{ skill.learners }} learners are exploring this skill</div>
+      <button type="button" class="start-button" [disabled]="usersLoading() || usersLoaded()" (click)="startLearning(skill)">
+        {{ usersLoading() ? 'Loading learners...' : usersLoaded() ? 'Learners loaded' : 'Start Learning' }}
+      </button>
+      @if (usersLoading()) {
+        <p class="users-message" role="status">Finding learners who know {{ skill.name }}...</p>
+      }
+      @if (usersError()) {
+        <p class="users-message error" role="alert">{{ usersError() }}</p>
+      }
+      @if (usersLoaded()) {
+        <section class="skill-users" aria-label="Learners with this skill">
+          <h3>Learners with {{ skill.name }}</h3>
+          @if (skillUsers().length > 0) {
+            <div class="skill-user-list">
+              @for (user of skillUsers(); track user.userId ?? user.id ?? $index) {
+                <article class="skill-user-card">
+                  <div class="skill-user-heading">
+                    <span class="skill-user-avatar">{{ getSkillUserName(user).charAt(0).toUpperCase() }}</span>
+                    <div class="skill-user-identity">
+                      <strong>{{ getSkillUserName(user) }}</strong>
+                      <span>{{ user.contact || user.email || user.phone || 'Contact not provided' }}</span>
+                    </div>
+                  </div>
+                  <div class="skill-user-stats">
+                    <span><strong>Rating</strong>{{ user.rating ?? 'Not rated' }}</span>
+                    <span><strong>Sessions</strong>{{ user.totalSessions ?? user.sessions ?? 0 }}</span>
+                  </div>
+                  @if (getUserSkillProfile(user); as profile) {
+                    <div class="user-skill-details">
+                      <section class="user-skill-section">
+                        <h4>Skills known</h4>
+                        @if (profile.knownSkillsLoading) {
+                          <span class="user-skill-message">Loading...</span>
+                        } @else if (profile.knownSkillsError) {
+                          <span class="user-skill-message error">Could not load skills.</span>
+                        } @else if (profile.knownSkills.length > 0) {
+                          <div class="user-skill-tags">
+                            @for (knownSkill of profile.knownSkills; track knownSkill.id) {
+                              <span>{{ knownSkill.skillName }}</span>
+                            }
+                          </div>
+                        } @else {
+                          <span class="user-skill-message">No skills listed.</span>
+                        }
+                      </section>
+                      <section class="user-skill-section">
+                        <h4>Wants to learn</h4>
+                        @if (profile.learningSkillsLoading) {
+                          <span class="user-skill-message">Loading...</span>
+                        } @else if (profile.learningSkillsError) {
+                          <span class="user-skill-message error">Could not load skills.</span>
+                        } @else if (profile.learningSkills.length > 0) {
+                          <label class="wanted-skill-select">
+                            <span>Select a skill to offer</span>
+                            <select
+                              [ngModel]="getSelectedSkillToOffer(user)"
+                              (ngModelChange)="selectSkillToOffer(user, $event)"
+                              [ngModelOptions]="{ standalone: true }"
+                              aria-label="Select a skill to offer"
+                            >
+                              <option value="">Choose a skill</option>
+                              @for (learningSkill of profile.learningSkills; track learningSkill.learningSkillId) {
+                                <option [value]="learningSkill.skillName">{{ learningSkill.skillName }}</option>
+                              }
+                            </select>
+                          </label>
+                        } @else {
+                          <span class="user-skill-message">No learning goals listed.</span>
+                        }
+                      </section>
+                    </div>
+                  } @else if (getSkillUserId(user) === null) {
+                    <div class="user-skill-details">
+                      <section class="user-skill-section">
+                        <h4>Skills known</h4>
+                        <span class="user-skill-message">Learner ID unavailable.</span>
+                      </section>
+                      <section class="user-skill-section">
+                        <h4>Wants to learn</h4>
+                        <span class="user-skill-message">Learner ID unavailable.</span>
+                      </section>
+                    </div>
+                  }
+                  <button
+                    type="button"
+                    class="send-request-button"
+                    [disabled]="!getSelectedSkillToOffer(user) || getSkillUserId(user) === null || getRequestState(user).loading || getRequestState(user).sent"
+                    (click)="sendRequest(user, skill.name)"
+                  >
+                    {{ getRequestState(user).loading ? 'Sending...' : getRequestState(user).sent ? 'Request Sent' : 'Send Request' }}
+                  </button>
+                  @if (getRequestState(user).error) {
+                    <span class="request-card-error" role="alert">{{ getRequestState(user).error }}</span>
+                  }
+                </article>
+              }
+            </div>
+          } @else {
+            <p class="users-message">No learners found for this skill yet.</p>
+          }
+        </section>
+      }
+    </section>
+  </div>
+}

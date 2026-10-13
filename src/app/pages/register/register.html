@@ -1,0 +1,84 @@
+<div class="register-page">
+
+  <div class="register-card">
+
+    <div class="brand">
+      Skill<span>Swap</span>
+    </div>
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+      Join SkillSwap and start sharing your skills
+    </p>
+
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="submitForm()">
+
+      <!-- NAME -->
+      <div class="form-group">
+
+        <label>Full Name</label>
+
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Enter your full name">
+
+      </div>
+
+
+      <!-- USERNAME -->
+      <div class="form-group">
+
+        <label>Username</label>
+
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="Choose a username">
+
+      </div>
+
+
+      <!-- EMAIL -->
+      <div class="form-group">
+
+        <label>Email ID</label>
+
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email">
+
+      </div>
+
+
+      <!-- MOBILE NUMBER -->
+      <div class="form-group">
+
+        <label>Mobile Number</label>
+
+        <input
+          type="tel"
+          formControlName="mobileNumber"
+          placeholder="Enter your 10-digit mobile number">
+
+      </div>
+
+
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        class="submit-button">
+
+        Create Account
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

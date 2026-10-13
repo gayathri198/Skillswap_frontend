@@ -1,0 +1,103 @@
+<div class="requests-shell">
+  <app-sidebar initialActive="My Requests" (navigate)="handleNavigation($event)" />
+
+  <main class="requests-main">
+    <section class="requests-card">
+      <div class="page-heading">
+        <div>
+          <h1>My Requests</h1>
+          <p>Manage your skill swap requests — sent and received.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="tabs">
+          @for (tab of tabs; track tab) {
+            <button
+              class="tab"
+              [class.active]="activeTab() === tab"
+              (click)="activeTab.set(tab)"
+            >
+              {{ tab }}
+              <span class="tab-count">{{ counts()[tab] }}</span>
+            </button>
+          }
+        </div>
+        <label class="search-box">
+          <app-icon name="search" [size]="16" />
+          <input
+            type="text"
+            placeholder="Search requests..."
+            [ngModel]="search()"
+            (ngModelChange)="search.set($event)"
+            aria-label="Search requests"
+          />
+        </label>
+      </div>
+
+      @if (actionError()) {
+        <p class="request-error" role="alert">{{ actionError() }}</p>
+      }
+
+      <div class="requests-list">
+        @if (isLoading()) {
+          <p class="empty-state" role="status">Loading requests...</p>
+        } @else if (loadError()) {
+          <div class="empty-state">
+            <p role="alert">{{ loadError() }}</p>
+            <button class="btn-view" type="button" (click)="loadRequests()">Retry</button>
+          </div>
+        } @else {
+          @for (req of filtered(); track req.id) {
+            <article class="request-row">
+              <span class="avatar">{{ req.avatar }}</span>
+
+              <div class="request-info">
+                <strong>{{ req.person }}</strong>
+                <div class="swap-detail">
+                  <span class="chip offered">{{ req.skillOffered }}</span>
+                  <app-icon name="chevron" [size]="14" />
+                  <span class="chip wanted">{{ req.skillWanted }}</span>
+                </div>
+              </div>
+
+              <div class="request-meta">
+                <span class="date">{{ req.date }}</span>
+                <span class="status-badge" [class]="statusClass(req.status)">{{ req.status }}</span>
+              </div>
+
+              <div class="request-actions">
+                @if (req.direction === 'received' && req.status === 'Pending') {
+                  <button class="btn-accept" type="button" [disabled]="isActionPending(req.id)" (click)="acceptRequest(req.id)">
+                    <app-icon name="check" [size]="15" /> Accept
+                  </button>
+                  <button class="btn-decline" type="button" [disabled]="isActionPending(req.id)" (click)="declineRequest(req.id)">
+                    <app-icon name="x" [size]="15" /> Decline
+                  </button>
+                }
+                @if (req.direction === 'sent' && req.status === 'Pending') {
+                  <button class="btn-cancel" type="button" [disabled]="isActionPending(req.id)" (click)="cancelRequest(req.id)">
+                    Cancel
+                  </button>
+                }
+                @if (req.status === 'Accepted' || req.status === 'Completed') {
+                  <button class="btn-view" type="button">View Session</button>
+                }
+                @if (req.status === 'Declined') {
+                  <button class="btn-remove" type="button" [disabled]="isActionPending(req.id)" (click)="cancelRequest(req.id)">Remove</button>
+                }
+              </div>
+            </article>
+          }
+
+          @if (filtered().length === 0) {
+          <div class="empty-state">
+            <app-icon name="send" [size]="36" />
+            <p>No requests found.</p>
+          </div>
+          }
+        }
+      </div>
+    </section>
+  </main>
+</div>

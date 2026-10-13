@@ -1,0 +1,186 @@
+<div class="login-page">
+
+  <div class="login-left">
+
+    <div class="brand">
+      Skill<span>Swap</span>
+    </div>
+
+    <div class="welcome">
+
+      <p class="tagline">
+        LEARN • SHARE • GROW
+      </p>
+
+      <h1>
+        Welcome Back!
+      </h1>
+
+      <p>
+        Login to continue your skill-sharing
+        journey with SkillSwap.
+      </p>
+
+    </div>
+
+  </div>
+  <div class="login-right">
+
+    <div class="login-card">
+
+      <h2>Login</h2>
+
+      <p class="subtitle">
+        Choose your account type to continue
+      </p>
+
+      <div class="role-selection">
+
+        <button
+          type="button"
+          class="role-button"
+          [class.active]="selectedRole === 'user'"
+          (click)="selectRole('user')">
+
+          <span class="role-icon">👤</span>
+
+          <span>
+            <strong>User</strong>
+            <small>Learn & Share Skills</small>
+          </span>
+
+        </button>
+
+        <button
+          type="button"
+          class="role-button"
+          [class.active]="selectedRole === 'admin'"
+          (click)="selectRole('admin')">
+
+          <span class="role-icon">🛡️</span>
+
+          <span>
+            <strong>Admin</strong>
+            <small>Manage SkillSwap</small>
+          </span>
+
+        </button>
+
+      </div>
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()">
+        <div class="form-group">
+
+          <label for="username">
+            Username or Email
+          </label>
+
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="Enter your username or email">
+
+          @if (
+            loginForm.get('username')?.touched &&
+            loginForm.get('username')?.invalid
+          ) {
+
+            <small class="error">
+              Username or Email is required
+            </small>
+
+          }
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password">
+
+          @if (
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.invalid
+          ) {
+
+            <small class="error">
+              Password is required
+            </small>
+
+          }
+
+        </div>
+        <div class="forgot-password">
+
+          <a href="#">
+            Forgot Password?
+          </a>
+
+        </div>
+
+        @if (loginError()) {
+          <small class="error" role="alert">{{ loginError() }}</small>
+        }
+
+        <button
+          type="submit"
+          class="login-button"
+          [disabled]="isLoggingIn()">
+
+          {{ isLoggingIn() ? 'Logging in...' : 'Login as' }}
+          @if (!isLoggingIn()) {
+          {{ selectedRole === 'admin' ? 'Admin' : 'User' }}
+          }
+
+        </button>
+
+      </form>
+
+      <button
+        type="button"
+        class="google-button">
+
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          class="google-icon"
+          alt="Google">
+
+        <span>
+          Continue with Google
+        </span>
+
+      </button>
+
+      <div class="divider">
+
+        <span>OR</span>
+
+      </div>
+
+
+      <p class="register-text">
+
+        Don't have an account?
+
+        <a routerLink="/register">
+          Create Account
+        </a>
+
+      </p>
+
+
+    </div>
+
+  </div>
+
+</div>
