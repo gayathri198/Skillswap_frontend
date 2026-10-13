@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ExploreSkillsComponent } from './explore-skills';
+import { authInterceptor } from '../../shared/auth/auth.interceptor';
 
 describe('ExploreSkillsComponent', () => {
     let component: ExploreSkillsComponent;
@@ -13,7 +14,7 @@ describe('ExploreSkillsComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ExploreSkillsComponent],
-            providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
+            providers: [provideHttpClient(withInterceptors([authInterceptor])), provideHttpClientTesting(), provideRouter([])],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ExploreSkillsComponent);

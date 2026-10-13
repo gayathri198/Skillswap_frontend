@@ -41,10 +41,15 @@
           } @else {
             <div class="heading-actions">
               <button type="button" class="secondary-button" (click)="toggleEdit()">Cancel</button>
-              <button type="button" class="primary-button" (click)="saveProfile()">Save Changes</button>
+              <button type="button" class="primary-button" (click)="saveProfile()" [disabled]="isSavingProfile()">
+                {{ isSavingProfile() ? 'Saving...' : 'Save Changes' }}
+              </button>
             </div>
           }
         </div>
+        @if (saveError()) {
+          <p class="profile-error" role="alert">{{ saveError() }}</p>
+        }
         <div class="account-content">
           <span class="large-avatar">{{ getInitial() }}</span>
           <div class="account-copy">
@@ -53,15 +58,23 @@
             <p>Public profile: <strong>Available to SkillSwap members</strong></p>
           </div>
         </div>
+        @if (isEditing()) {
+          <div class="edit-profile-fields">
+            <label class="field-label" for="fullName">Full name</label>
+            <input id="fullName" type="text" [(ngModel)]="fullName" autocomplete="name" />
+            <label class="field-label" for="username">Username</label>
+            <input id="username" type="text" [(ngModel)]="username" autocomplete="username" />
+          </div>
+        }
       </section>
 
       <div class="details-grid">
         <section class="detail-card contact-card">
           <h2>Contact Details</h2>
-          <p class="verified-line">Email</p>
-          <p class="email">{{ profile()?.email || 'Not provided' }}</p>
+          <label class="field-label" for="email">Email</label>
+          <input id="email" type="email" [(ngModel)]="email" [readonly]="!isEditing()" autocomplete="email" />
           <label class="field-label" for="phone">Phone number <span>(optional)</span></label>
-          <input id="phone" type="tel" [(ngModel)]="phone" [readonly]="!isEditing()" />
+          <input id="phone" type="tel" [(ngModel)]="phone" [readonly]="!isEditing()" autocomplete="tel" />
         </section>
 
         <section class="detail-card bio-card">

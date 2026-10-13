@@ -6,6 +6,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { navigateByLabel } from '../../shared/navigation/navigation';
 import { SkillService, UserSkill } from '../../services/skill.service';
 import { SwapRequestDto, SwapRequestService } from '../../services/swap-request.service';
+import { UpdateUserRequest, UserService } from '../../services/user.service';
 
 type ProfileSkill = {
   name: string;
@@ -38,7 +39,9 @@ type UserProfile = {
 })
 export class ProfileComponent {
   isEditing = signal(false);
+  isSavingProfile = signal(false);
   savedNotice = signal(false);
+  saveError = signal('');
   profile = signal<UserProfile | null>(null);
   profileError = signal('');
   skillsLoading = signal(false);
@@ -47,6 +50,9 @@ export class ProfileComponent {
   requestsLoading = signal(false);
   requestsError = signal('');
   private requests = signal<SwapRequestDto[]>([]);
+  fullName = '';
+  username = '';
+  email = '';
   phone = '';
   bio = '';
 
@@ -77,6 +83,7 @@ export class ProfileComponent {
     private router: Router,
     private skillService: SkillService,
     private swapRequestService: SwapRequestService,
+    private userService: UserService,
   ) {
     this.loadProfile();
   }
@@ -86,14 +93,55 @@ export class ProfileComponent {
   }
 
   toggleEdit(): void {
-    this.isEditing.update((editing: boolean) => !editing);
+    if (this.isEditing()) {
+      this.restoreEditableFields();
+      this.saveError.set('');
+      this.isEditing.set(false);
+      return;
+    }
+
+    this.restoreEditableFields();
+    this.saveError.set('');
+    this.isEditing.set(true);
     this.savedNotice.set(false);
   }
 
   saveProfile(): void {
-    this.isEditing.set(false);
-    this.savedNotice.set(true);
-    window.setTimeout(() => this.savedNotice.set(false), 2800);
+    const profile = this.profile();
+    if (!profile || this.isSavingProfile()) {
+      return;
+    }
+
+    const updatedUser: UpdateUserRequest = {
+      fullName: this.fullName.trim(),
+      username: this.username.trim(),
+      email: this.email.trim(),
+      mobileNumber: this.phone.trim(),
+    };
+    if (!updatedUser.fullName || !updatedUser.username || !updatedUser.email) {
+      this.saveError.set('Name, username, and email are required.');
+      return;
+    }
+
+    this.saveError.set('');
+    this.isSavingProfile.set(true);
+    this.userService.updateUser(profile.id, updatedUser).subscribe({
+      next: () => {
+        const updatedProfile = { ...profile, ...updatedUser };
+        this.profile.set(updatedProfile);
+        this.bio = profile.bio;
+        this.persistUserDetails(updatedUser);
+        this.isEditing.set(false);
+        this.savedNotice.set(true);
+        this.isSavingProfile.set(false);
+        window.setTimeout(() => this.savedNotice.set(false), 2800);
+      },
+      error: error => {
+        console.error('Failed to update profile:', error);
+        this.saveError.set('Failed to save your profile. Please try again.');
+        this.isSavingProfile.set(false);
+      },
+    });
   }
 
   getInitial(): string {
@@ -135,6 +183,9 @@ export class ProfileComponent {
         bio: this.readString(profileData, 'bio'),
       };
       this.profile.set(profile);
+      this.fullName = profile.fullName;
+      this.username = profile.username;
+      this.email = profile.email;
       this.phone = profile.mobileNumber;
       this.bio = profile.bio;
       this.loadSkills(userId);
@@ -181,5 +232,43 @@ export class ProfileComponent {
   private readString(source: Record<string, unknown>, key: string): string {
     const value = source[key];
     return typeof value === 'string' ? value : '';
+  }
+
+  private restoreEditableFields(): void {
+    const profile = this.profile();
+    if (!profile) {
+      return;
+    }
+
+    this.fullName = profile.fullName;
+    this.username = profile.username;
+    this.email = profile.email;
+    this.phone = profile.mobileNumber;
+  }
+
+  private persistUserDetails(updatedUser: UpdateUserRequest): void {
+    const storedDetails = localStorage.getItem('userdetails');
+    if (!storedDetails) {
+      return;
+    }
+
+    try {
+      const parsed: unknown = JSON.parse(storedDetails);
+      if (typeof parsed !== 'object' || parsed === null) {
+        throw new Error('Saved user details are not an object.');
+      }
+
+      const response = parsed as Record<string, unknown>;
+      const existingUser = typeof response['user'] === 'object' && response['user'] !== null
+        ? response['user'] as Record<string, unknown>
+        : response;
+      const updatedDetails = response['user'] === undefined
+        ? { ...response, ...updatedUser }
+        : { ...response, user: { ...existingUser, ...updatedUser } };
+      localStorage.setItem('userdetails', JSON.stringify(updatedDetails));
+    } catch (error) {
+      console.error('Failed to save updated user details locally:', error);
+      this.saveError.set('Profile updated, but the saved account details could not be refreshed.');
+    }
   }
 }

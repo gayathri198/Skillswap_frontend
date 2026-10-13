@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { AUTH_EXPIRED_NOTICE_KEY } from '../../shared/auth/auth.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,10 @@ export class Login {
     private userService: UserService,
     private router: Router
   ) {
+    if (sessionStorage.getItem(AUTH_EXPIRED_NOTICE_KEY) === 'true') {
+      this.loginError.set('Your login has expired. Please sign in again.');
+      sessionStorage.removeItem(AUTH_EXPIRED_NOTICE_KEY);
+    }
 
     this.loginForm = this.fb.group({
 
@@ -56,6 +61,7 @@ export class Login {
         role: this.selectedRole,
       }).subscribe({
         next: user => {
+          sessionStorage.removeItem(AUTH_EXPIRED_NOTICE_KEY);
           localStorage.setItem('userdetails', JSON.stringify(user));
           this.isLoggingIn.set(false);
           void this.router.navigate(['/dashboard']);

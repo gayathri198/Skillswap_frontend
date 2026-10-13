@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ProfileComponent } from './profile';
+import { authInterceptor } from '../../shared/auth/auth.interceptor';
 
 describe('ProfileComponent', () => {
     let component: ProfileComponent;
@@ -24,7 +25,7 @@ describe('ProfileComponent', () => {
 
         await TestBed.configureTestingModule({
             imports: [ProfileComponent],
-            providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
+            providers: [provideHttpClient(withInterceptors([authInterceptor])), provideHttpClientTesting(), provideRouter([])],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ProfileComponent);
@@ -51,5 +52,32 @@ describe('ProfileComponent', () => {
         expect(content).toContain('Ada Lovelace');
         expect(content).toContain('ada@example.com');
         expect((fixture.nativeElement.querySelector('#phone') as HTMLInputElement).value).toBe('1234567890');
+    });
+
+    it('updates account details and refreshes saved user data', () => {
+        component.toggleEdit();
+        component.fullName = 'Ada Byron';
+        component.username = 'ada-byron';
+        component.email = 'ada.byron@example.com';
+        component.phone = '5551234567';
+        component.saveProfile();
+
+        const request = httpTestingController.expectOne('http://localhost:5218/api/User/9');
+        expect(request.request.method).toBe('PUT');
+        expect(request.request.body).toEqual({
+            fullName: 'Ada Byron',
+            username: 'ada-byron',
+            email: 'ada.byron@example.com',
+            mobileNumber: '5551234567',
+        });
+        request.flush('User updated successfully.');
+
+        expect(component.profile()?.fullName).toBe('Ada Byron');
+        expect(component.profile()?.email).toBe('ada.byron@example.com');
+        expect(component.isEditing()).toBe(false);
+
+        const stored = JSON.parse(localStorage.getItem('userdetails') || '{}');
+        expect(stored.user.fullName).toBe('Ada Byron');
+        expect(stored.user.username).toBe('ada-byron');
     });
 });

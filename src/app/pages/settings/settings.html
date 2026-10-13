@@ -12,10 +12,10 @@
         <span></span>
       </button>
       <div class="profile-summary">
-        <span class="profile-avatar">G</span>
+        <span class="profile-avatar">{{ getInitial() }}</span>
         <div>
-          <strong>Gayathri</strong>
-          <small>Learner</small>
+          <strong>{{ fullName || username || 'Your account' }}</strong>
+          <small>{{ role }}</small>
         </div>
         <app-icon name="chevron-down" [size]="15" />
       </div>
@@ -55,11 +55,13 @@
                 </div>
 
                 <div class="account-banner">
-                  <span class="large-avatar">G</span>
+                  <span class="large-avatar">{{ getInitial() }}</span>
                   <div>
-                    <h3>Gayathri</h3>
-                    <span>Learner</span>
-                    <p><app-icon name="users" [size]="15" /> Member since 25 May 2025</p>
+                    <h3>{{ fullName || username || 'Your account' }}</h3>
+                    <span>{{ role }}</span>
+                    @if (email) {
+                      <p><app-icon name="users" [size]="15" /> {{ email }}</p>
+                    }
                   </div>
                 </div>
 
@@ -103,12 +105,22 @@
             @case ('Change Password') {
               <section class="settings-panel simple-page">
                 <div class="panel-heading simple"><div><h2>Change Password</h2><p>Keep your account secure with a strong password.</p></div></div>
-                <div class="password-form form-grid single-column">
-                  <label>Current Password<input type="password" [(ngModel)]="currentPassword" /></label>
-                  <label>New Password<input type="password" [(ngModel)]="newPassword" /></label>
-                  <label>Confirm New Password<input type="password" [(ngModel)]="confirmPassword" /></label>
-                </div>
-                <button type="button" class="save-button" (click)="saveSettings()">Update Password</button>
+                <form class="password-form" (submit)="changePassword($event)">
+                  <div class="form-grid single-column">
+                    <label>Current Password<input type="password" [(ngModel)]="currentPassword" name="currentPassword" autocomplete="current-password" /></label>
+                    <label>New Password<input type="password" [(ngModel)]="newPassword" name="newPassword" autocomplete="new-password" /></label>
+                    <label>Confirm New Password<input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" autocomplete="new-password" /></label>
+                  </div>
+                  @if (passwordError()) {
+                    <p class="form-message error" role="alert">{{ passwordError() }}</p>
+                  }
+                  @if (passwordSuccess()) {
+                    <p class="form-message success" role="status">{{ passwordSuccess() }}</p>
+                  }
+                  <button type="submit" class="save-button" [disabled]="isChangingPassword()">
+                    {{ isChangingPassword() ? 'Updating...' : 'Update Password' }}
+                  </button>
+                </form>
               </section>
             }
             @case ('Notifications') {
@@ -128,4 +140,3 @@
 </div>
 
 @if (savedNotice()) { <div class="toast" role="status">Your settings have been saved.</div> }
-
