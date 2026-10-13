@@ -1,6 +1,6 @@
 <header class="header">
   <div class="greeting">
-    <h1>Hello,{{username}}! <span class="wave">◒</span></h1>
+    <h1>Hello, {{ username }}! <span class="wave">◒</span></h1>
     <p>Let's learn, share and grow together.</p>
   </div>
 
@@ -16,10 +16,10 @@
     </button>
 
     <button class="profile-menu" (click)="profile.emit()">
-      <span class="avatar avatar-gayathri">G</span>
+      <span class="avatar">{{ getInitial() }}</span>
       <span class="profile-text">
-        <b>Gayathri</b>
-        <small>Learner</small>
+        <b>{{ fullName }}</b>
+        <small>{{ role }}</small>
       </span>
       <app-icon name="chevron" [size]="14" />
     </button>
