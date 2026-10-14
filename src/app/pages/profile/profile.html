@@ -3,10 +3,6 @@
 
   <main class="profile-main">
     <header class="topbar">
-      <label class="global-search">
-        <app-icon name="search" [size]="18" />
-        <input type="text" placeholder="Search skills, people..." aria-label="Search skills and people" />
-      </label>
       <button class="notification-button" aria-label="Notifications">
         <app-icon name="bell" [size]="20" />
         <span></span>
@@ -71,16 +67,16 @@
       <div class="details-grid">
         <section class="detail-card contact-card">
           <h2>Contact Details</h2>
-          <label class="field-label" for="email">Email</label>
-          <input id="email" type="email" [(ngModel)]="email" [readonly]="!isEditing()" autocomplete="email" />
-          <label class="field-label" for="phone">Phone number <span>(optional)</span></label>
-          <input id="phone" type="tel" [(ngModel)]="phone" [readonly]="!isEditing()" autocomplete="tel" />
-        </section>
-
-        <section class="detail-card bio-card">
-          <h2>Bio / Summary</h2>
-          <textarea [(ngModel)]="bio" [readonly]="!isEditing()" maxlength="240" aria-label="Bio and summary"></textarea>
-          <span class="character-count">{{ bio.length }} characters</span>
+          <div class="contact-fields">
+            <div>
+              <label class="field-label" for="email">Email</label>
+              <input id="email" type="email" [(ngModel)]="email" [readonly]="!isEditing()" autocomplete="email" />
+            </div>
+            <div>
+              <label class="field-label" for="phone">Phone number <span>(optional)</span></label>
+              <input id="phone" type="tel" [(ngModel)]="phone" [readonly]="!isEditing()" autocomplete="tel" />
+            </div>
+          </div>
         </section>
       </div>
 

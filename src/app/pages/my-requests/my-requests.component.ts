@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { AppIcon } from '../../shared/app-icon/app-icon';
@@ -58,7 +58,14 @@ export class MyRequestsComponent {
   constructor(
     private router: Router,
     private swapRequestService: SwapRequestService,
+    private route: ActivatedRoute,
   ) {
+    this.route.queryParamMap.subscribe(params => {
+      const tab = params.get('tab');
+      if (tab === 'Sent' || tab === 'Received') {
+        this.activeTab.set(tab);
+      }
+    });
     this.loadRequests();
   }
 

@@ -1,17 +1,30 @@
 <article class="panel activity-panel">
   <div class="panel-heading">
     <h2>Recent Activity</h2>
-    <button>View All</button>
+    @if (activities().length > 5) {
+      <button type="button" (click)="toggleShowAll()">
+        {{ showAll() ? 'Show Less' : 'View All' }}
+      </button>
+    }
   </div>
+  @if (skillError() || requestError()) {
+    <p class="activity-message" role="alert">Some recent activity could not be loaded.</p>
+  }
   <div class="activity-list">
-    @for (item of activities; track item.text) {
+    @for (item of visibleActivities(); track item.id) {
       <div class="activity-row">
         <span class="activity-icon" [class]="item.theme">
           <app-icon [name]="item.icon" [size]="15" />
         </span>
         <span class="activity-text">{{ item.text }}</span>
-        <time>{{ item.time }}</time>
+        @if (item.time) {
+          <time>{{ item.time }}</time>
+        }
       </div>
+    } @empty {
+      @if (!skillError() && !requestError()) {
+        <p class="activity-message">No recent activity yet.</p>
+      }
     }
   </div>
 </article>

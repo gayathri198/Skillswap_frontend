@@ -6,9 +6,25 @@
       </div>
       <div>
         <p>{{ stat.label }}</p>
-        <strong>{{ stat.value }}</strong>
+        <strong>
+          @switch (stat.label) {
+            @case ('My Skills') { {{ mySkillsCount() }} }
+            @case ('Requests Sent') { {{ sentRequestsCount() }} }
+            @case ('Requests Received') { {{ receivedRequestsCount() }} }
+            @case ('Sessions Completed') { {{ completedSessionsCount() }} }
+            @default { {{ stat.value }} }
+          }
+        </strong>
         <small>{{ stat.detail }}</small>
       </div>
+      @if (stat.label === 'My Skills' || stat.label === 'Requests Sent' || stat.label === 'Requests Received') {
+        <button
+          type="button"
+          class="stat-card-link"
+          [attr.aria-label]="'Open ' + stat.label"
+          (click)="navigate.emit(stat.label)">
+        </button>
+      }
     </article>
   }
 </section>

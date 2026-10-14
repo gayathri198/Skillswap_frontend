@@ -5,8 +5,9 @@
 
 .main-content {
   flex: 1;
-  padding: 25px 18px;
-  max-width: 1140px;
+  min-width: 0;
+  padding: 32px clamp(20px, 3vw, 44px);
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -43,7 +44,7 @@
 
 @media (max-width: 900px) {
   .main-content {
-    padding: 20px 14px;
+    padding: 24px 18px;
   }
 
   .content-grid {
@@ -54,6 +55,10 @@
 @media (max-width: 700px) {
   .app-shell {
     display: block;
+  }
+
+  .main-content {
+    padding: 20px 14px;
   }
 
   .content-grid {

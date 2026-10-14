@@ -4,7 +4,7 @@
   <main class="main-content">
     <app-header />
 
-    <app-stats />
+    <app-stats (navigate)="handleNavigation($event)" />
 
     <section class="content-grid">
       <app-activity />

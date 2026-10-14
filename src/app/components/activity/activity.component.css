@@ -3,7 +3,7 @@
   border: 1px solid #eef1f6;
   border-radius: 6px;
   box-shadow: 0 2px 8px #24345b08;
-  padding: 15px 13px 13px;
+  padding: 20px 18px 18px;
   min-width: 0;
 }
 
@@ -11,33 +11,39 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .panel-heading h2 {
   margin: 0;
   color: #17233c;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .panel-heading button {
   color: #3152df;
-  font-size: 8px;
+  font-size: 11px;
 }
 
 .activity-panel {
-  min-height: 234px;
+  min-height: 270px;
 }
 
 .activity-list {
   display: grid;
 }
 
+.activity-message {
+  margin: 8px 0;
+  color: #68758b;
+  font-size: 12px;
+}
+
 .activity-row {
   display: flex;
   align-items: center;
-  min-height: 34px;
-  gap: 9px;
+  min-height: 42px;
+  gap: 12px;
   border-bottom: 1px solid #f0f2f6;
 }
 
@@ -46,8 +52,8 @@
 }
 
 .activity-icon {
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -79,7 +85,7 @@
 }
 
 .activity-text {
-  font-size: 8px;
+  font-size: 12px;
   color: #34415a;
   flex: 1;
   white-space: nowrap;
@@ -89,6 +95,6 @@
 
 .activity-row time {
   color: #8893a7;
-  font-size: 7px;
+  font-size: 10px;
   white-space: nowrap;
 }

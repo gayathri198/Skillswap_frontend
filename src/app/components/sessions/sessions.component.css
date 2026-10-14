@@ -1,5 +1,5 @@
 .sessions-panel {
-  min-height: 234px;
+  min-height: 270px;
 }
 
 .session-list {
@@ -9,8 +9,8 @@
 .session-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 0;
+  gap: 12px;
+  padding: 9px 0;
   border-bottom: 1px solid #f0f2f6;
 }
 
@@ -24,11 +24,11 @@
   place-items: center;
   border-radius: 50%;
   color: #26344d;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   background: #e1e6ee;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
 }
 
 .avatar-priya {
@@ -44,7 +44,7 @@
 }
 
 .session-person {
-  min-width: 90px;
+  min-width: 110px;
   flex: 1;
 }
 
@@ -54,27 +54,27 @@
 }
 
 .session-person b {
-  font-size: 8px;
+  font-size: 12px;
   color: #27344c;
 }
 
 .session-person small {
-  font-size: 7px;
+  font-size: 10px;
   color: #68758b;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .session-meta {
   display: flex;
-  gap: 9px;
+  gap: 12px;
 }
 
 .session-meta span {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   color: #68758b;
-  font-size: 7px;
+  font-size: 10px;
   white-space: nowrap;
 }
 
@@ -83,12 +83,12 @@
 }
 
 .session-row em {
-  font-size: 7px;
+  font-size: 10px;
   font-style: normal;
   color: #1ba767;
   background: #e4f8ed;
   border-radius: 4px;
-  padding: 4px 6px;
+  padding: 5px 8px;
 }
 
 .primary-button {
@@ -96,9 +96,9 @@
   color: white;
   border: none;
   border-radius: 5px;
-  height: 25px;
+  height: 34px;
   width: 100%;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
   box-shadow: 0 4px 10px #3655e833;
   transition: transform 0.2s, background 0.2s;

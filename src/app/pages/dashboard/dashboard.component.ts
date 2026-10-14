@@ -28,7 +28,14 @@ export class DashboardComponent {
 
   constructor(private router: Router) {}
 
- handleNavigation(label: string): void {
+  handleNavigation(label: string): void {
+    if (label === 'Requests Sent' || label === 'Requests Received') {
+      void this.router.navigate(['/my-requests'], {
+        queryParams: { tab: label === 'Requests Sent' ? 'Sent' : 'Received' },
+      });
+      return;
+    }
+
     navigateByLabel(this.router, label);
   }
 }
